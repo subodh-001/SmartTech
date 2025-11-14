@@ -36,6 +36,67 @@ const OTP_EXPIRY_MS = 5 * 60 * 1000; // 5 minutes
 const googleClientId = process.env.GOOGLE_CLIENT_ID;
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
 
+const getOtpEmailTemplate = ({ fullName, otp, purpose }) => {
+  const friendlyName = fullName ? ` ${fullName}` : '';
+  const heading =
+    purpose === 'password_reset'
+      ? 'Reset your SmartTech Connect password'
+      : 'Confirm your SmartTech Connect account';
+  const intro =
+    purpose === 'password_reset'
+      ? 'We received a request to reset the password for your SmartTech Connect account.'
+      : 'Thank you for choosing SmartTech Connect! Use the verification code below to continue.';
+  const action =
+    purpose === 'password_reset'
+      ? 'Enter this verification code in the app to set a new password.'
+      : 'Enter this verification code in the app to finish creating your account.';
+
+  return `
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#0f172a;padding:32px 0;font-family:Arial,Helvetica,sans-serif;">
+      <tr>
+        <td align="center">
+          <table width="520" cellpadding="0" cellspacing="0" style="background:#0b1121;border-radius:12px;border:1px solid rgba(255,255,255,0.08);padding:32px;color:#e2e8f0;">
+            <tr>
+              <td style="text-align:left;">
+                <div style="font-size:18px;font-weight:600;color:#cbd5f5;margin-bottom:4px;">SmartTech Connect</div>
+                <div style="font-size:14px;color:#94a3b8;">Hyperlocal Services • Verified Technicians</div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top:24px;">
+                <div style="font-size:20px;font-weight:600;color:#f1f5f9;">${heading}</div>
+                <p style="margin:12px 0 8px;font-size:15px;color:#cbd5f5;">Hello${friendlyName},</p>
+                <p style="margin:0 0 16px;line-height:1.6;font-size:14px;color:#a5b4fc;">${intro}</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align:center;padding:20px 0;">
+                <div style="display:inline-block;background:#1d4ed8;color:#ffffff;font-size:28px;font-weight:700;letter-spacing:6px;padding:20px 32px;border-radius:10px;">${otp}</div>
+                <p style="margin-top:12px;font-size:13px;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;">Valid for 5 minutes</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p style="margin:0 0 12px;line-height:1.6;font-size:14px;color:#cbd5f5;">${action}</p>
+                <p style="margin:0 0 12px;line-height:1.6;font-size:13px;color:#94a3b8;">If you did not make this request, please ignore this email. Your account remains secure.</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top:16px;border-top:1px solid rgba(148,163,184,0.2);">
+                <p style="margin:12px 0 4px;font-size:12px;color:#64748b;">Need help?</p>
+                <p style="margin:0;font-size:12px;color:#475569;">Contact SmartTech Connect Support • support@smarttechconnect.com</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  `;
+};
+
+const getOtpEmailSubject = (purpose) =>
+  purpose === 'password_reset' ? 'SmartTech Connect Password Reset Code' : 'SmartTech Connect Verification Code';
+
 router.post('/send-otp', async (req, res) => {
   try {
     const { email, fullName, purpose = 'generic' } = req.body || {};
@@ -89,14 +150,14 @@ router.post('/send-otp', async (req, res) => {
     const mailOptions = {
       from: emailFrom,
       to: normalizedEmail,
-      subject: 'SmartTech Connect Verification Code',
-      text: `Hello${fullName ? ` ${fullName}` : ''},\n\nYour SmartTech Connect verification code is ${otp}. It expires in 5 minutes.\n\nIf you did not request this, please ignore this email.\n`,
-      html: `
-        <p>Hello${fullName ? ` ${fullName}` : ''},</p>
-        <p>Your SmartTech Connect verification code is <strong>${otp}</strong>.</p>
-        <p>This code will expire in 5 minutes.</p>
-        <p>If you did not request this, you can safely ignore this email.</p>
-      `,
+      subject: getOtpEmailSubject(normalizedPurpose),
+      text: `Hello${fullName ? ` ${fullName}` : ''},
+
+${normalizedPurpose === 'password_reset' ? 'Use the code below to reset your SmartTech Connect password.' : 'Use the code below to finish creating your SmartTech Connect account.'}
+
+Verification code: ${otp}
+This code expires in 5 minutes.`,
+      html: getOtpEmailTemplate({ fullName, otp, purpose: normalizedPurpose }),
     };
 
     await mailTransporter.sendMail(mailOptions);

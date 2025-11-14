@@ -1,8 +1,8 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import path from 'path';
@@ -20,8 +20,6 @@ import User from './models/User.js';
 import Technician from './models/Technician.js';
 import ServiceRequest from './models/ServiceRequest.js';
 import { ensureHelpCenterSeed } from './seeders/helpCenterSeeder.js';
-
-dotenv.config();
 
 const app = express();
 app.set('etag', false); // disable ETag to avoid stale 304 responses for API clients

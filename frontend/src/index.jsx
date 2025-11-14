@@ -1,6 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import "./lib/setupAxios";
 import App from "./App";
 import "./styles/tailwind.css";
 import "./styles/index.css";

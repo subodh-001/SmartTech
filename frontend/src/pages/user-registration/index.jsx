@@ -4,16 +4,19 @@ import axios from 'axios';
 import RegistrationHeader from './components/RegistrationHeader';
 import RegistrationForm from './components/RegistrationForm';
 import OTPVerificationModal from './components/OTPVerificationModal';
+import { buildApiUrl } from '../../utils/apiBase';
+import { useAuth } from '../../contexts/NewAuthContext';
 
 const UserRegistration = () => {
   const navigate = useNavigate();
+  const { refreshUser } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [showOTPModal, setShowOTPModal] = useState(false);
   const [registrationData, setRegistrationData] = useState(null);
   const [otpInfo, setOtpInfo] = useState(null);
 
   const sendOtp = async (data) => {
-    const response = await fetch('/api/auth/send-otp', {
+    const response = await fetch(buildApiUrl('/api/auth/send-otp'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: data.email, fullName: data.fullName, purpose: 'registration' }),
@@ -58,7 +61,7 @@ const UserRegistration = () => {
     setIsLoading(true);
 
     try {
-      const verifyResponse = await fetch('/api/auth/verify-otp', {
+      const verifyResponse = await fetch(buildApiUrl('/api/auth/verify-otp'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: registrationData.email, otp, purpose: 'registration' }),
@@ -83,7 +86,7 @@ const UserRegistration = () => {
         postalCode: registrationData.postalCode || '',
       };
 
-      const registerResponse = await fetch('/api/auth/register', {
+      const registerResponse = await fetch(buildApiUrl('/api/auth/register'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(registerPayload),
@@ -96,6 +99,7 @@ const UserRegistration = () => {
       if (registerResult.token) {
         localStorage.setItem('authToken', registerResult.token);
         axios.defaults.headers.common['Authorization'] = `Bearer ${registerResult.token}`;
+        await refreshUser();
       }
 
       setShowOTPModal(false);

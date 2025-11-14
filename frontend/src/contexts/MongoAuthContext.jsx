@@ -17,43 +17,6 @@ export const MongoAuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Check for existing token on mount
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-          // Set default authorization header for all requests
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          
-          // Get current user from API
-          const response = await axios.get('/api/auth/me');
-          if (response.data) {
-            setUser(response.data.user);
-            await fetchUserProfile();
-          } else {
-            // Invalid or expired token
-            localStorage.removeItem('authToken');
-            delete axios.defaults.headers.common['Authorization'];
-            setUser(null);
-            setUserProfile(null);
-          }
-        }
-      } catch (err) {
-        console.error('Auth check error:', err);
-        localStorage.removeItem('authToken');
-        delete axios.defaults.headers.common['Authorization'];
-        setUser(null);
-        setUserProfile(null);
-        setError(err.response?.data?.error || err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAuth();
-  }, []);
-
   // Fetch user profile data
   const fetchUserProfile = async () => {
     try {
@@ -153,6 +116,53 @@ export const MongoAuthProvider = ({ children }) => {
       return null;
     }
   };
+
+  const refreshUser = async () => {
+    try {
+      const response = await axios.get('/api/auth/me');
+      if (response.data?.user) {
+        setUser(response.data.user);
+        await fetchUserProfile();
+        return response.data.user;
+      }
+      return null;
+    } catch (err) {
+      console.error('Refresh auth error:', err);
+      localStorage.removeItem('authToken');
+      delete axios.defaults.headers.common['Authorization'];
+      setUser(null);
+      setUserProfile(null);
+      setError(err.response?.data?.error || err.message);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Check for existing token on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          await refreshUser();
+        } else {
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error('Auth check error:', err);
+        localStorage.removeItem('authToken');
+        delete axios.defaults.headers.common['Authorization'];
+        setUser(null);
+        setUserProfile(null);
+        setError(err.response?.data?.error || err.message);
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   // Sign in with email and password
   const signIn = async (email, password) => {
@@ -256,7 +266,8 @@ export const MongoAuthProvider = ({ children }) => {
     signIn,
     signUp,
     signOut,
-    fetchUserProfile
+    fetchUserProfile,
+    refreshUser
   };
 
   return <MongoAuthContext.Provider value={value}>{children}</MongoAuthContext.Provider>;

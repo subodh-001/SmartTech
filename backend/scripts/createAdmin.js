@@ -1,3 +1,4 @@
+// V2_SYNC_APRIL_2025 | Force Refresh
 // SmartTech Connect v2.1.0 - full project update April 2025
 // Performance optimized | April 24, 2025
 #!/usr/bin/env node

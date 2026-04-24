@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import jwt from 'jsonwebtoken';
 
 const authMiddleware = (req, res, next) => {

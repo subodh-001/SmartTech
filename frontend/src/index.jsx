@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { GoogleOAuthProvider } from "@react-oauth/google";

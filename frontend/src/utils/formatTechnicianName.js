@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 /**
  * Formats technician name for display
  * Handles cases where name might be generic "technician" or missing

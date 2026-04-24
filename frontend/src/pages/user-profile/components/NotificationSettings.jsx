@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React from 'react';
 import { Bell, Mail, MessageSquare, Smartphone } from 'lucide-react';
 import Button from '../../../components/ui/Button';

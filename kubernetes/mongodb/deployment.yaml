@@ -1,3 +1,4 @@
+# Updated: April 2025 - SmartTech Connect
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:

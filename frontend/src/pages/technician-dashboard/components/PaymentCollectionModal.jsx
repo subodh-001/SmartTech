@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';

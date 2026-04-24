@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React from "react";
 import { Check, Minus } from "lucide-react";
 import { cn } from "../../utils/cn";

@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React, { useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
@@ -32,13 +33,15 @@ const BookingFilters = ({ onFilterChange, onClearFilters }) => {
     { value: 'quarter', label: 'Last 3 Months' }
   ];
 
-  const priceRangeOptions = [
-    { value: '', label: 'Any Price' },
-    { value: '0-50', label: '₹0 - ₹50' },
-    { value: '50-100', label: '₹50 - ₹100' },
-    { value: '100-200', label: '₹100 - ₹200' },
-    { value: '200+', label: '₹200+' }
-  ];
+const priceRangeOptions = [
+  { value: '', label: 'Any Price' },
+  { value: '0-499', label: 'Below ₹500' },
+  { value: '500-999', label: '₹500 – ₹999' },
+  { value: '1000-1999', label: '₹1,000 – ₹1,999' },
+  { value: '2000-4999', label: '₹2,000 – ₹4,999' },
+  { value: '5000+', label: '₹5,000+' }
+];
+
 
   const statusOptions = [
     { value: '', label: 'All Status' },

@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Icon from '../AppIcon';

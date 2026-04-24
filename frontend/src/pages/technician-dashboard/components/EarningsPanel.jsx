@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React, { useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';

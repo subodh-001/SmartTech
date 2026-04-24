@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import express from 'express';
 import mongoose from 'mongoose';
 import authMiddleware from '../middleware/auth.js';

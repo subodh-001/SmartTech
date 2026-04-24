@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import express from 'express';
 import { ServiceRequest } from '../models/index.js';
 import { authMiddleware } from '../lib/auth.js';

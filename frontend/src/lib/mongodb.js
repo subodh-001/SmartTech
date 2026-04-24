@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import mongoose from 'mongoose';
 
 const mongoURI = import.meta.env?.VITE_MONGODB_URI;

@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React, { useEffect, useRef } from 'react';
 import MessageBubble from './MessageBubble';
 

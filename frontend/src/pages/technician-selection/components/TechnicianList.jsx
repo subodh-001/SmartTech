@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React from 'react';
 import TechnicianCard from './TechnicianCard';
 import Icon from '../../../components/AppIcon';

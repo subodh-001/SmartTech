@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React from "react";
 import { AuthProvider } from "./contexts/NewAuthContext";
 import Routes from "./Routes";

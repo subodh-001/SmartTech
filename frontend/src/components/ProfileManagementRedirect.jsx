@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import ProfileManagement from '../pages/profile-management';
 
 const ProfileManagementRedirect = () => {

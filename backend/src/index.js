@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';

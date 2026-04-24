@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import express from 'express';
 import { registerUser, loginUser, getCurrentUser } from '../lib/auth.js';
 

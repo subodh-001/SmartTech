@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React from 'react';
 import { MongoAuthProvider, useAuth as useMongoAuth } from './MongoAuthContext';
 

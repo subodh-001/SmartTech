@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import Technician from '../models/Technician.js';
 import { TECHNICIAN_SPECIALTIES, SPECIALTY_LABEL_MAP } from '../constants/technicianSpecialties.js';
 

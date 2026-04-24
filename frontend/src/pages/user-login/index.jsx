@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/NewAuthContext'

@@ -1,3 +1,4 @@
+# Updated: April 2025 - SmartTech Connect
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

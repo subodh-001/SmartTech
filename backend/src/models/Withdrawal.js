@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import mongoose from 'mongoose';
 
 const WithdrawalSchema = new mongoose.Schema(

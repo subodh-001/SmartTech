@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import axios from 'axios';

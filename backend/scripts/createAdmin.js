@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 #!/usr/bin/env node
 import 'dotenv/config';
 import mongoose from 'mongoose';

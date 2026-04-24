@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 export const TECHNICIAN_SPECIALTIES = [
   { id: 'plumbing', label: 'Plumbing', icon: 'Wrench' },
   { id: 'electrical', label: 'Electrical', icon: 'Zap' },

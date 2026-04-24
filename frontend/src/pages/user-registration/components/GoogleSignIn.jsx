@@ -1,3 +1,4 @@
+// Updated: April 2025 - SmartTech Connect
 import React, { useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import Button from '../../../components/ui/Button';
